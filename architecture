@@ -1,0 +1,46 @@
+                    GitHub
+                       │
+                       │ git push
+                       ▼
+                   Jenkins
+                       │
+             ┌─────────┴─────────┐
+             │    CI Pipeline    │
+             │                   │
+             │ Build → Test      │
+             │ Docker Build      │
+             │ Push Image        │
+             └─────────┬─────────┘
+                       │
+                       ▼
+              Blue-Green Deploy
+                       │
+                ┌──────┴──────┐
+                ▼             ▼
+             BLUE           GREEN
+              v1              v2
+                │             │
+                └──────┬──────┘
+                       │
+                       ▼
+                    Nginx
+                       │
+                       ▼
+                     User
+                       │
+                       ▼
+                    MySQL
+
+
+Technology Stack: 
+* Frontend : React
+* Backend  : FastAPI
+* Database : MySql
+* Reverse Proxy: Nginx
+* Containers: Docker
+* CI/CD : Jenkins
+* Source Control: Github
+* Deployement Strategy : Blue-Green
+* Initial environment: Ubuntu/WSL
+
+
