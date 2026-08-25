@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [backendStatus, setBackendStatus] = useState("Checking...");
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/health")
@@ -13,6 +14,15 @@ function App() {
       })
       .catch(() => {
         setBackendStatus("Backend unavailable");
+      });
+
+    fetch("http://localhost:8000/employees")
+      .then((response) => response.json())
+      .then((data) => {
+        setEmployees(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch employees:", error);
       });
   }, []);
 
@@ -38,23 +48,13 @@ function App() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Rahul</td>
-            <td>50000</td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>Priya</td>
-            <td>60000</td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>Amith</td>
-            <td>70000</td>
-          </tr>
+          {employees.map((employee) => (
+            <tr key={employee.id}>
+              <td>{employee.id}</td>
+              <td>{employee.name}</td>
+              <td>{employee.salary}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

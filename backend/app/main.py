@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.database import get_connection
 app = FastAPI(title="Employee Management API")
 
 app.add_middleware(
@@ -26,3 +26,20 @@ def health():
         "status": "healthy",
         "version": "1.0"
     }
+@app.get("/employees")
+def get_employees():
+
+    connection = get_connection()
+
+    cursor = connection.cursor(dictionary=True)
+
+    cursor.execute(
+        "SELECT id, name, salary FROM employee"
+    )
+
+    employees = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return employees
